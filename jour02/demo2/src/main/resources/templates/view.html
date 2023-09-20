@@ -1,0 +1,26 @@
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <!-- read the arraylist from the controller with thymleaf -->
+    <table>
+        <tr th:each="test, iterstat: ${list}">
+            <td th:text="${test}" th:id="|td${iterstat.index}|"></td>
+        </tr>
+    </table>
+    
+    <p><span th:each="test, iterstat: ${list}" th:text="${test}" th:id="|td${iterstat.index}|"><span></p>
+    <!-- make a simple form -->
+    <form th:action="@{/view}" th:object="${formulaire}" method="post">
+        <label for="age">Age :</label>
+        <input type="text" id="age" th:field="*{age}" />
+        <p th:if="${#fields.hasErrors('age')}" th:text="'Entrez un nombre !'">Entrez un age valide !</p>
+        <button type="submit">Submit</button>
+    </form>
+    
+    <p th:if="${message != null}" th:text="${message} + ' vous avez '+ ${formulaire.getAge()} +' ans'"></p>
+</body>
+</html>
